@@ -1,0 +1,13 @@
+.DS_Store
+.quartz-cache
+.obsidian
+.replit
+node_modules
+public
+prof
+tsconfig.tsbuildinfo
+private/
+replit.nix
+
+# Contenido de la wiki (usa un repositorio aparte).
+content/
