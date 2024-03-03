@@ -1,20 +1,21 @@
 {
-  "name": "@agustinbravop/waffre-website",
-  "description": "Fork de Quartz que genera un sitio web estático para los apuntes de WAFFRe.",
+  "name": "@agustinbravop/wafrre-website",
+  "description": "Fork de Quartz que genera un sitio web estático para los apuntes de WAFRRe.",
   "private": true,
-  "version": "0.0.1",
+  "version": "4.2.3",
   "type": "module",
   "author": "agustinbravop <agustinbravop01@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/agustinbravop/waffre-website",
+  "homepage": "https://github.com/agustinbravop/wafrre-website",
   "repository": {
     "type": "git",
-    "url": "https://github.com/agustinbravop/waffre-website.git"
+    "url": "https://github.com/agustinbravop/wafrre-website.git"
   },
   "scripts": {
+    "start": "npx quartz build --serve",
     "docs": "npx quartz build --serve -d docs",
-    "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
+    "check": "tsc --noEmit && npx prettier . --check",
     "test": "tsx ./quartz/util/path.test.ts && tsx ./quartz/depgraph.test.ts",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"
   },

@@ -4,6 +4,35 @@ import { Date, getDate } from "./Date";
 import { QuartzComponent, QuartzComponentProps } from "./types";
 import { GlobalConfiguration } from "../cfg";
 
+const FILTERED_PREFIXES = ["Los ", "Las ", "El ", "La "];
+
+/**
+ * Retorna el string dado pero sin cualquiera de los prefijos listados.
+ * Solo elimina el primer prefijo que encuentra. Ej: Dado "Los la" devuelve "la".
+ * Ejemplo: `filterPrefixes("Los Procesos")` retorna "Procesos".
+ */
+function filterPrefixes(str: string) {
+  for (const prefix of FILTERED_PREFIXES) {
+    if (str.startsWith(prefix)) {
+      return str.slice(prefix.length);
+    }
+  }
+  return str;
+}
+
+/** MOD: Ordenar por fecha tiene sentido en un blog, no en WAFRRe. */
+function byAlphabetical(): (
+  f1: QuartzPluginData,
+  f2: QuartzPluginData,
+) => number {
+  return (f1, f2) => {
+    // sort lexographically by title
+    const f1Title = f1.frontmatter?.title.toLowerCase() ?? "";
+    const f2Title = f2.frontmatter?.title.toLowerCase() ?? "";
+    return filterPrefixes(f1Title).localeCompare(filterPrefixes(f2Title));
+  };
+}
+
 export function byDateAndAlphabetical(
   cfg: GlobalConfiguration,
 ): (f1: QuartzPluginData, f2: QuartzPluginData) => number {
@@ -35,7 +64,8 @@ export const PageList: QuartzComponent = ({
   allFiles,
   limit,
 }: Props) => {
-  let list = allFiles.sort(byDateAndAlphabetical(cfg));
+  // MOD: en WAFRRe ordenar por fecha de modificación no es útil. Se ordena solo alfabéticamente.
+  let list = allFiles.sort(byAlphabetical());
   if (limit) {
     list = list.slice(0, limit);
   }

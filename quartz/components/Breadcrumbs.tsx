@@ -83,7 +83,9 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       fileData.slug!,
       "/" as SimpleSlug,
     );
-    const crumbs: CrumbData[] = [firstEntry];
+
+    // MOD: Eliminado "Home" del breadcrumb porque no aporta navegabilidad nueva.
+    const crumbs: CrumbData[] = [];
 
     if (!folderIndex && options.resolveFrontmatterTitle) {
       folderIndex = new Map();

@@ -1,3 +1,3 @@
-# waffre
+# WAFRRe
 
-Wiki de Apuntes de la Facultad Regional Resistencia. Un proyecto estudiantil colaborativo de la UTN.
+Wiki de Apuntes de la Facultad Regional Resistencia de la UTN en Argentina. Un proyecto colaborativo del cuerpo estudiantil.

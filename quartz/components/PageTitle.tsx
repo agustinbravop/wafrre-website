@@ -6,6 +6,7 @@ import {
 } from "./types";
 import { classNames } from "../util/lang";
 import { i18n } from "../i18n";
+import { WAFRRE_ICON_SVG } from "./svgs/wafrreIcon";
 
 const PageTitle: QuartzComponent = ({
   fileData,
@@ -15,8 +16,11 @@ const PageTitle: QuartzComponent = ({
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title;
   const baseDir = pathToRoot(fileData.slug!);
   return (
+    // MOD: Agrego icono SVG al título.
     <h1 class={classNames(displayClass, "page-title")}>
-      <a href={baseDir}>{title}</a>
+      <a href={baseDir}>
+        {WAFRRE_ICON_SVG} {title}
+      </a>
     </h1>
   );
 };
