@@ -141,3 +141,16 @@ function toggleCollapsedByPath(array: FolderState[], path: string) {
     entry.collapsed = !entry.collapsed;
   }
 }
+
+// MOD: Permite que el Explorer siempre aproveche al máximo el espacio libre,
+// pero también asegura que entre la lista completa.
+function resizeMaxHeight() {
+  const explorerUl = document.getElementById("explorer-ul");
+  if (!explorerUl) return;
+
+  // 330 son los píxeles que están por arriba del inicio del Explorer.
+  explorerUl.style.maxHeight = `${window.innerHeight - 330}px`;
+}
+
+window.addEventListener("load", resizeMaxHeight);
+window.addEventListener("resize", resizeMaxHeight);

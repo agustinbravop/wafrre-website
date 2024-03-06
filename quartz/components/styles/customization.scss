@@ -1,0 +1,54 @@
+.customization {
+  display: flex;
+  width: fit-content;
+
+  & #customization-icon {
+    cursor: pointer;
+    fill: var(--darkgray);
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.1s;
+  }
+
+  & #customization-container {
+    contain: layout;
+    z-index: 999;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+
+    &.open {
+      display: inline-block;
+    }
+
+    & #customization-menu {
+      width: 50%;
+      margin-top: 12vh;
+      margin-right: auto;
+      margin-bottom: 2em;
+      margin-left: auto;
+      padding: 1px 2em 1em;
+      background: var(--light);
+      border-radius: 7px;
+      box-shadow:
+        0 14px 50px #1b21301f,
+        0 10px 30px #1b213029;
+
+      & > div {
+        display: flex;
+        gap: 0.2em;
+      }
+    }
+  }
+
+  // Para el componente `Darkmode` anidado dentro de `Customization`.
+  & .darkmode {
+    align-self: center;
+  }
+}
