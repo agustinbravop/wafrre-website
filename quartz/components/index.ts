@@ -20,6 +20,7 @@ import MobileOnly from "./MobileOnly";
 import RecentNotes from "./RecentNotes";
 import Breadcrumbs from "./Breadcrumbs";
 import Customization from "./Customization";
+import FavoritesExplorer from "./FavoritesExplorer";
 
 export {
   ArticleTitle,
@@ -44,4 +45,5 @@ export {
   NotFound,
   Breadcrumbs,
   Customization,
+  FavoritesExplorer,
 };

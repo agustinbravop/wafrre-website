@@ -1,4 +1,5 @@
 import { FolderState } from "../ExplorerNode";
+import { getStoredFavorites } from "./util";
 
 type MaybeHTMLElement = HTMLElement | undefined;
 let currentExplorerState: FolderState[];
@@ -155,3 +156,59 @@ function resizeMaxHeight() {
 window.addEventListener("load", resizeMaxHeight);
 window.addEventListener("resize", resizeMaxHeight);
 document.addEventListener("nav", resizeMaxHeight);
+
+// JS para animar y controlar el toggle de materias favoritas.
+document.addEventListener("nav", () => {
+  const toggle = document.getElementById("favorites-explorer-toggle")!;
+  const input = toggle.querySelector("input")!;
+  const explorerUl = document.getElementById("explorer-ul")!;
+  const isFiltering =
+    localStorage.getItem("filterFavoritesExplorer") ?? "false";
+
+  /** Solo muestra en el `Explorer` las materias favoritas del usuario. */
+  function filterFavoritesExplorer() {
+    toggle.classList.add("selected");
+    input.setAttribute("selected", "selected");
+    explorerUl.classList.add("filtered");
+
+    const favorites = getStoredFavorites();
+    const courses = explorerUl?.querySelectorAll("span.folder-title");
+
+    courses.forEach((course) => {
+      if (favorites.includes(course.textContent ?? "")) {
+        course.classList.add("shown");
+      }
+    });
+  }
+
+  /** Vuelve a mostrar en el `Explorer` todas las materias. */
+  function unfilterFavoritesExplorer() {
+    toggle.classList.remove("selected");
+    input.removeAttribute("selected");
+    explorerUl.classList.remove("filtered");
+
+    const favCourses = explorerUl?.querySelectorAll(".shown");
+
+    favCourses.forEach((element) => {
+      element.classList.remove("shown");
+    });
+  }
+
+  // Consultar el estado guardado previamente.
+  if (isFiltering === "true") {
+    filterFavoritesExplorer();
+  }
+
+  // Listener para activar o desactivar filtro.
+  toggle.addEventListener("click", () => {
+    const isActive = toggle.classList.contains("selected");
+
+    if (isActive) {
+      localStorage.setItem("filterFavoritesExplorer", "false");
+      unfilterFavoritesExplorer();
+    } else {
+      localStorage.setItem("filterFavoritesExplorer", "true");
+      filterFavoritesExplorer();
+    }
+  });
+});

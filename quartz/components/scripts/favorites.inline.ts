@@ -1,3 +1,5 @@
+import { addFavorite, getStoredFavorites, removeFavorite } from "./util";
+
 document.addEventListener("nav", async () => {
   const favorites = document.getElementById("favorites")!;
   const select = document.getElementById("favorites-select")!;
@@ -17,32 +19,6 @@ document.addEventListener("nav", async () => {
     return select.querySelector(
       `option[value="${datasetValue}"]`,
     ) as HTMLOptionElement;
-  }
-
-  /** Devuelve los nombres de las materias favoritas del usuario en localStorage. */
-  function getStoredFavorites(): string[] {
-    const parsed = JSON.parse(localStorage.getItem("favorites") ?? "[]");
-    if (!Array.isArray(parsed)) {
-      return [];
-    }
-    return parsed;
-  }
-
-  /** Agrega una materia a las materias favoritas en localStorage. */
-  function addFavorite(fav: string = "") {
-    const favs = getStoredFavorites();
-    favs.push(fav);
-    localStorage.setItem("favorites", JSON.stringify(favs));
-  }
-
-  /** Elimina una materia del las materias favoritas en localStorage. */
-  function removeFavorite(fav: string = "") {
-    const favs = getStoredFavorites();
-    const index = favs.indexOf(fav);
-    if (index !== -1) {
-      favs.splice(index, 1);
-    }
-    localStorage.setItem("favorites", JSON.stringify(favs));
   }
 
   /**
