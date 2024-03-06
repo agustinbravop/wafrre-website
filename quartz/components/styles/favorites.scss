@@ -1,0 +1,233 @@
+@use "../../styles/variables.scss" as *;
+
+#favorites {
+  position: relative;
+  margin-left: 20px;
+  margin-top: 7px;
+  width: 610px;
+  display: flex;
+  flex-grow: 1;
+  gap: 10px;
+
+  // Visualmente el "select" o control que el usuario ve.
+  & #favorites-control {
+    width: 276px;
+    max-width: 300px;
+    position: relative;
+    z-index: 2;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--light);
+    font-size: 14px;
+    height: 30px;
+    box-shadow: 0 1px 8px 0 var(--highlight);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 2px 16px -1px var(--highlight);
+    }
+
+    // Flecha que abre o cierra lista de opciones.
+    & .arrow {
+      position: absolute;
+      width: 28px;
+      right: 1px;
+      top: 0;
+      bottom: 0;
+      cursor: pointer;
+
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 2px;
+        height: 8px;
+        border-bottom: 8px solid var(--gray);
+        top: 43%;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      &:before {
+        right: 12px;
+        transform: rotate(-130deg);
+      }
+
+      &:after {
+        left: 9px;
+        transform: rotate(130deg);
+      }
+    }
+
+    // Envuelve al elemento `<select>` y al texto placeholder.
+    #favorites-select-wrapper {
+      display: block;
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+      transition: all 0.3s ease;
+
+      // El `<select>` siempre está oculto.
+      #favorites-select {
+        display: none;
+      }
+    }
+  }
+
+  // Lista de opciones no seleccionadas.
+  & #favorites-list {
+    width: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    z-index: 1;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    border-radius: 8px;
+    transform: translate(0, 20px) scale(0.8);
+    transform-origin: 0 0;
+    box-shadow: 0 1px 8px var(--highlight);
+    transition:
+      all 0.4s ease,
+      transform 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44),
+      filter 0.3s ease 0.2s;
+
+    // Cada opción de la lista.
+    li {
+      background: var(--light);
+      padding: 8px 12px;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease 0.3s,
+        opacity 0.5s ease 0.3s,
+        border-radius 0.3s ease;
+
+      &:first-child {
+        border-radius: 8px 8px 0 0;
+
+        &:last-child {
+          border-radius: 8px;
+        }
+      }
+
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+
+        &:first-child {
+          border-radius: 8px;
+        }
+      }
+
+      &:hover {
+        background: var(--lightbrand);
+      }
+    }
+  }
+
+  // Cuando se abre el select y se muestra la lista de opciones.
+  &.open {
+    & #favorites-control {
+      box-shadow: 0 2px 16px -1px var(--highlight);
+
+      & .arrow {
+        &:before {
+          transform: rotate(-50deg);
+        }
+
+        &:after {
+          transform: rotate(50deg);
+        }
+      }
+    }
+
+    // La lista de opciones se vuelve visible.
+    & #favorites-list {
+      transform: translate(0, 12px) scaleY(1);
+      visibility: visible;
+      filter: drop-shadow(0 1px 8px 0 var(--highlight));
+      opacity: 1;
+    }
+  }
+
+  // Lista de tags para cada elemento seleccionado.
+  #favorites-selected {
+    max-width: 300px;
+    margin-top: 0px;
+
+    span {
+      max-width: 280px;
+      position: relative;
+      padding: 4px 24px 4px 8px;
+      line-height: 1.5em;
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: top;
+      background: var(--lightbrand);
+      border-radius: 4px;
+      margin-bottom: 4px;
+      margin-left: 4px;
+      word-wrap: break-word;
+      opacity: 0;
+      transform: translate(-6px, 0);
+      transition: all 0.4s ease 0.3s;
+
+      // Cruz para deseleccionar la opción.
+      i {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 100%;
+        display: block;
+        opacity: 0;
+        transition: all 0.3s ease 0.3s;
+
+        &:before,
+        &:after {
+          content: "";
+          display: block;
+          width: 2px;
+          height: 10px;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          background: var(--brand);
+        }
+
+        &:before {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &:after {
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
+      }
+
+      // Se muestra la tag unos segundos después para dar un pequeño efecto.
+      &.shown {
+        opacity: 1;
+        transform: translate(0, 0);
+
+        i {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

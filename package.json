@@ -12,7 +12,7 @@
     "url": "https://github.com/agustinbravop/wafrre-website.git"
   },
   "scripts": {
-    "start": "npx quartz build --serve",
+    "start": "npx quartz build --serve -d wafrre",
     "docs": "npx quartz build --serve -d docs",
     "format": "npx prettier . --write",
     "check": "tsc --noEmit && npx prettier . --check",
