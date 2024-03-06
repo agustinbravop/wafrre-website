@@ -1,12 +1,14 @@
+@use "../../styles/variables.scss" as *;
+
 .customization {
   display: flex;
   width: fit-content;
 
   & #customization-icon {
-    cursor: pointer;
     fill: var(--darkgray);
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
     transition: opacity 0.1s;
   }
 
@@ -43,6 +45,25 @@
       & > div {
         display: flex;
         gap: 0.2em;
+
+        // Para celular y tablet.
+        @media all and (max-width: $fullPageWidth) {
+          & #favorites {
+            flex-direction: column;
+          }
+        }
+
+        // Para celular.
+        @media all and (max-width: $tabletBreakpoint) {
+          &:nth-child(3) {
+            flex-direction: column;
+            gap: 0;
+
+            & #favorites {
+              margin: 0;
+            }
+          }
+        }
       }
     }
   }
@@ -50,5 +71,10 @@
   // Para el componente `Darkmode` anidado dentro de `Customization`.
   & .darkmode {
     align-self: center;
+  }
+
+  @media all and (max-width: $fullPageWidth) {
+    margin-left: 12px;
+    margin-right: 12px;
   }
 }

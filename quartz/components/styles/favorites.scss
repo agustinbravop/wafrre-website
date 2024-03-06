@@ -1,18 +1,17 @@
 @use "../../styles/variables.scss" as *;
 
 #favorites {
-  position: relative;
-  margin-left: 20px;
-  margin-top: 7px;
-  width: 610px;
   display: flex;
-  flex-grow: 1;
+  position: relative;
+  margin-left: 10px;
+  margin-top: 7px;
+  max-width: min(580px, 100%);
   gap: 10px;
 
   // Visualmente el "select" o control que el usuario ve.
   & #favorites-control {
     width: 276px;
-    max-width: 300px;
+    max-width: min(100%, 300px);
     position: relative;
     z-index: 2;
     padding: 8px 12px;
@@ -67,7 +66,6 @@
       top: 8px;
       left: 12px;
       cursor: pointer;
-      text-align: center;
       line-height: 30px;
       transition: all 0.3s ease;
 
@@ -80,7 +78,7 @@
 
   // Lista de opciones no seleccionadas.
   & #favorites-list {
-    width: 300px;
+    max-width: 300px;
     max-height: 300px;
     overflow-y: scroll;
     margin: 0;

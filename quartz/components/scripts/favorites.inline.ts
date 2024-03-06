@@ -3,7 +3,6 @@ document.addEventListener("nav", async () => {
   const select = document.getElementById("favorites-select")!;
   const list = document.getElementById("favorites-list")!;
   const selected = document.getElementById("favorites-selected")!;
-  const selectOptions = select.querySelectorAll("option");
 
   /** Elimina un nodo del DOM reduciendo su opacidad. */
   function removeWithFadeOut(element: HTMLElement) {
@@ -13,30 +12,63 @@ document.addEventListener("nav", async () => {
     setTimeout(() => element.remove(), speed);
   }
 
+  /** Obtiene un elemento `<option>` de la lista del `<select>`. */
+  function getOptionElement(datasetValue: string = "") {
+    return select.querySelector(
+      `option[value="${datasetValue}"]`,
+    ) as HTMLOptionElement;
+  }
+
+  /** Devuelve los nombres de las materias favoritas del usuario en localStorage. */
+  function getStoredFavorites(): string[] {
+    const parsed = JSON.parse(localStorage.getItem("favorites") ?? "[]");
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+    return parsed;
+  }
+
+  /** Agrega una materia a las materias favoritas en localStorage. */
+  function addFavorite(fav: string = "") {
+    const favs = getStoredFavorites();
+    favs.push(fav);
+    localStorage.setItem("favorites", JSON.stringify(favs));
+  }
+
+  /** Elimina una materia del las materias favoritas en localStorage. */
+  function removeFavorite(fav: string = "") {
+    const favs = getStoredFavorites();
+    const index = favs.indexOf(fav);
+    if (index !== -1) {
+      favs.splice(index, 1);
+    }
+    localStorage.setItem("favorites", JSON.stringify(favs));
+  }
+
   /**
    * Crea un `<span>` y lo concatena a la lista de opciones seleccionadas.
    * Elimina el `<li>` asociado de la lista de opciones sin seleccionar.
    */
-  function selectOption(innerText: string, datasetValue?: string) {
+  function selectOption(innerText: string, datasetValue: string = "") {
     const span = document.createElement("span");
     span.innerHTML = `${innerText}<i></i>`;
     span.dataset.value = datasetValue;
-    span.classList.add("notShown");
-
-    // Se lo inserta al DOM.
     selected.appendChild(span);
 
     // Se elimina su opción asociada.
-    const li = list.querySelector(
-      `li[data-value="${datasetValue}"]`,
-    ) as HTMLElement;
-    removeWithFadeOut(li);
+    const li = list.querySelector(`li[data-value="${datasetValue}"]`);
+    removeWithFadeOut(li as HTMLElement);
+
+    // Se marca el `<option>` en el `<select>`.
+    const opt = getOptionElement(span.dataset.value);
+    opt.selected = true;
 
     // Listener en la cruz que deselecciona la opción y elimina el span.
     span.querySelector("i")!.addEventListener("click", () => {
       // Se deselecciona la `<option>` en el `<select>`.
-      const opt = select.querySelector(`option[value="${span.dataset.value}"]`);
-      opt?.removeAttribute("selected");
+      const opt = getOptionElement(span.dataset.value);
+      opt.selected = false;
+      removeFavorite(span.dataset.value);
 
       // Crea un `<li>` y lo concatena a la lista de opciones no seleccionadas.
       const li = document.createElement("li");
@@ -49,13 +81,6 @@ document.addEventListener("nav", async () => {
 
     return span;
   }
-
-  // Crea un tag para todas las opciones que ya vienen preseleccionadas.
-  selectOptions.forEach((option) => {
-    if (option.selected) {
-      selectOption(option.innerText, option.value);
-    }
-  });
 
   // Maneja el seleccionar una opción de la lista.
   list.addEventListener("click", (e) => {
@@ -71,10 +96,7 @@ document.addEventListener("nav", async () => {
 
       // Se crea el `<span>` y se lo agrega a la lista de seleccionados.
       const span = selectOption(li.innerText, li.dataset.value);
-
-      // Se marca el `<option>` en el `<select>`.
-      const opt = select.querySelector(`option[value="${span.dataset.value}"]`);
-      opt?.setAttribute("selected", "selected");
+      addFavorite(li.dataset.value);
 
       setTimeout(() => {
         // Se elimina la opción seleccionable del listado del select.
@@ -92,4 +114,14 @@ document.addEventListener("nav", async () => {
         favorites.classList.toggle("open");
       });
     });
+
+  // Crea un tag para todas las materias ya guardadas.
+  // Por defecto todos los `<option>` están sin seleccionar.
+  getStoredFavorites().forEach((fav) => {
+    const option = getOptionElement(fav);
+    if (option) {
+      const span = selectOption(option.innerText, option.value);
+      span.classList.add("shown");
+    }
+  });
 });
