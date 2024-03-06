@@ -78,3 +78,57 @@
     margin-right: 12px;
   }
 }
+
+// Se agrega un toggle para filtrar o no por materias favorias.
+#favorites-explorer-toggle {
+  align-self: center;
+  margin-left: 8px;
+  width: 40px;
+  min-width: 40px;
+  height: 20px;
+  border-radius: 18px;
+  background-color: var(--lightgray);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  & .circle {
+    width: 14px;
+    height: 14px;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: var(--gray);
+    fill: var(--lightgray);
+    transform: translateX(0px);
+    transition: 300ms;
+  }
+
+  // Solo cuando está activado el toggle.
+  &.selected {
+    background-color: var(--lightbrand);
+
+    & .circle {
+      background-color: var(--brand);
+      fill: var(--lightbrand);
+      transform: translateX(20px);
+      transition: 300ms;
+    }
+  }
+
+  & > input {
+    display: none;
+  }
+}
+
+// Al momento de filtrar se ocultan todas las materias no favoritas.
+#explorer-ul.filtered {
+  // Oculta todas las carpetas que no contienen materias favoritas.
+  & ul[data-folderul=""] li:not(:has(> * .shown)) {
+    display: none;
+  }
+
+  // "Desoculta" las subcarpetas (y nodos hoja) de las materias favoritas.
+  & li:has(> .folder-container .shown) > .folder-outer ul li {
+    display: block;
+  }
+}
