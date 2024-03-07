@@ -14,7 +14,7 @@ const config: QuartzConfig = {
     analytics: { provider: "plausible" },
     locale: "es-ES",
     baseUrl: "agustinbravop.github.io",
-    ignorePatterns: ["private", "templates", ".obsidian", "Excalidraw"],
+    ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
       cdnCaching: true,
