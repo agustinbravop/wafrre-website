@@ -25,7 +25,10 @@ jobs:
         with:
           node-version: 18.14
       - name: Install Dependencies
-        run: npm ci
+        # Parece que una dependencia es específica al OS y trae problemas
+        # ya que desarrollo en Windows pero hago el deploy en Ubuntu.
+        # Borrar el `package-lock.json` permite descargar la versión de Ubuntu.
+        run: rm package-lock.json && npm ci
       - name: Clone `wafrre` Repository
         run: git clone https://github.com/agustinbravop/wafrre
       - name: Build Quartz
