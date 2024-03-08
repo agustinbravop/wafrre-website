@@ -1,9 +1,9 @@
-name: Deploy WAFRRe website to GitHub Pages
+name: Deploy WAFRRe to GitHub Pages When Updated
 
+# Esta GitHub Action es disparada por una Action del repo `agustinbravop/wafrre`.
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [trigger-workflow]
 
 permissions:
   contents: read
@@ -26,6 +26,8 @@ jobs:
           node-version: 18.14
       - name: Install Dependencies
         run: npm ci
+      - name: Clone `wafrre` Repository
+        run: git clone https://github.com/agustinbravop/wafrre
       - name: Build Quartz
         run: npx quartz build -d wafrre
       - name: Upload artifact

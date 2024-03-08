@@ -14,7 +14,17 @@ const config: QuartzConfig = {
     analytics: { provider: "plausible" },
     locale: "es-ES",
     baseUrl: "agustinbravop.github.io",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: [
+      "private",
+      "templates",
+      // Directorios que no corresponden en el sitio web.
+      ".obsidian",
+      ".git",
+      ".github",
+      // Archivos que solo corresponden al repositorio, no al sitio web.
+      "LICENSE.md",
+      "README.md",
+    ],
     defaultDateType: "created",
     theme: {
       cdnCaching: true,

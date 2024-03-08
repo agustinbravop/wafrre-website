@@ -12,7 +12,8 @@
     "url": "https://github.com/agustinbravop/wafrre-website.git"
   },
   "scripts": {
-    "start": "npx quartz build --serve -d wafrre",
+    "start": "npx quartz build --serve -d 'C:\\Users\\anbra\\Desktop\\Projects\\wafrre'",
+    "build": "npx quartz build -d 'C:\\Users\\anbra\\Desktop\\Projects\\wafrre'",
     "docs": "npx quartz build --serve -d docs",
     "format": "npx prettier . --write",
     "check": "tsc --noEmit && npx prettier . --check",

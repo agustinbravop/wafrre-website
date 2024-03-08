@@ -9,6 +9,8 @@ tsconfig.tsbuildinfo
 private/
 replit.nix
 
-# Contenido de la wiki (usa un repositorio aparte).
+# Contenido de la wiki (se guarda en un repositorio aparte).
 content/
 wafrre/
+# Symlink (para evitar problemas con anidar un repositorio dentro de otro).
+wafrre.lnk
