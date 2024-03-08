@@ -19,11 +19,27 @@ export default ((opts?: Options) => {
   }: QuartzComponentProps) => {
     const year = new Date().getFullYear();
     const links = opts?.links ?? [];
+
     return (
       <footer class={`${displayClass ?? ""}`}>
         <hr />
         {/* MOD: Personalizo el footer. */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <p style={{ marginTop: 0 }}>
+              {ARGENTINA_FLAG_SVG} Universidad Pública
+            </p>
+            <ul>
+              <li>
+                <a href={`https:/${cfg.baseUrl}/wafrre-website`}>Inicio</a>
+              </li>
+              <li>
+                <a href={`https:/${cfg.baseUrl}/wafrre-website/Colaborar`}>
+                  Colaborar
+                </a>
+              </li>
+            </ul>
+          </div>
           <div>
             <p style={{ marginTop: 0 }}>
               {i18n(cfg.locale).components.footer.createdWith}{" "}
@@ -37,11 +53,6 @@ export default ((opts?: Options) => {
                 </li>
               ))}
             </ul>
-          </div>
-          <div>
-            <p style={{ marginTop: 0 }}>
-              {ARGENTINA_FLAG_SVG} Universidad Pública
-            </p>
           </div>
         </div>
       </footer>
