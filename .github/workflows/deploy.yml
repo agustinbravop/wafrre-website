@@ -28,7 +28,7 @@ jobs:
         # Parece que una dependencia es específica al OS y trae problemas
         # ya que desarrollo en Windows pero hago el deploy en Ubuntu.
         # Borrar el `package-lock.json` permite descargar la versión de Ubuntu.
-        run: rm package-lock.json && npm ci
+        run: rm package-lock.json && npm i
       - name: Clone `wafrre` Repository
         run: git clone https://github.com/agustinbravop/wafrre
       - name: Build Quartz
