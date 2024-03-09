@@ -24,24 +24,22 @@ export default ((opts?: Options) => {
       <footer class={`${displayClass ?? ""}`}>
         <hr />
         {/* MOD: Personalizo el footer. */}
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
           <div>
-            <p style={{ marginTop: 0 }}>
-              {ARGENTINA_FLAG_SVG} Universidad Pública
-            </p>
+            <p>{ARGENTINA_FLAG_SVG} Universidad Pública</p>
             <ul>
               <li>
-                <a href={`https:/${cfg.baseUrl}/wafrre-website`}>Inicio</a>
+                <a href={`https://${cfg.baseUrl}/wafrre-website`}>Inicio</a>
               </li>
               <li>
-                <a href={`https:/${cfg.baseUrl}/wafrre-website/Colaborar`}>
+                <a href={`https://${cfg.baseUrl}/wafrre-website/Colaborar`}>
                   Colaborar
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <p style={{ marginTop: 0 }}>
+            <p>
               {i18n(cfg.locale).components.footer.createdWith}{" "}
               <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> ©{" "}
               {year}

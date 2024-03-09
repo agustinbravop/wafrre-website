@@ -43,7 +43,7 @@ export default (() => {
             </g>
           </g>
         </svg>
-        
+
         <div id="customization-container">
           <div id="customization-menu">
             <h2>Personalización</h2>

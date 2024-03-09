@@ -19,7 +19,7 @@ const PageTitle: QuartzComponent = ({
     // MOD: Agrego icono SVG al título.
     <h1 class={classNames(displayClass, "page-title")}>
       <a href={baseDir}>
-        {WAFRRE_ICON_SVG} {title}
+        {WAFRRE_ICON_SVG} <span>{title}</span>
       </a>
     </h1>
   );
@@ -28,6 +28,12 @@ const PageTitle: QuartzComponent = ({
 PageTitle.css = `
 .page-title {
   margin: 0;
+}
+
+@media all and (max-width: 360px) {
+  .page-title a span {
+    display: none;
+  }
 }
 `;
 
